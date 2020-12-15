@@ -30,8 +30,8 @@
             filePath = "SDL_tutorial/DotTexture.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
             landmarkName = "DotTexture::render(x, y, clip, renderer)"
             landmarkType = "7">
          </BreakpointContent>

@@ -8,6 +8,8 @@
 
 #include "DotTexture.hpp"
 
+SDL_Surface* DotTexture::mloadedSurface = NULL;
+
 DotTexture::DotTexture()
 {
     //Initialize
@@ -43,20 +45,23 @@ void DotTexture::initialize(SDL_Renderer* renderer) {
 }
 
 bool DotTexture::loadFromFile(std::string path, SDL_Renderer* renderer) {
-    SDL_Surface* loaded_surface = IMG_Load(path.c_str());
-    if(loaded_surface == NULL) {
+    if(mloadedSurface == NULL) {
+        mloadedSurface = IMG_Load(path.c_str());
+    }
+    
+    if(mloadedSurface == NULL) {
         printf("null surface, %s", SDL_GetError());
         return 0;
     }
-    SDL_SetColorKey(loaded_surface, SDL_TRUE, SDL_MapRGB(loaded_surface->format, 0x00, 0xFF, 0xFF));
-    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, loaded_surface);
+    SDL_SetColorKey(mloadedSurface, SDL_TRUE, SDL_MapRGB(mloadedSurface->format, 0x00, 0xFF, 0xFF));
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, mloadedSurface);
     if(texture == NULL) {
         printf("null texture, %s", SDL_GetError());
         return 0;
     }
-    mWidth = loaded_surface->w;
-    mHeight = loaded_surface->h;
-    SDL_FreeSurface(loaded_surface);
+    mWidth = mloadedSurface->w;
+    mHeight = mloadedSurface->h;
+    //SDL_FreeSurface(mloadedSurface);
     mTexture = texture;
     return mTexture != NULL;
 }
@@ -77,6 +82,9 @@ void DotTexture::free() {
         SDL_DestroyTexture(mTexture);
         mTexture = NULL;
         mWidth = mHeight = 0;
+    }
+    if(mloadedSurface != NULL) {
+        SDL_FreeSurface(mloadedSurface);
     }
 }
 
@@ -108,3 +116,4 @@ void DotTexture::setColor(SDL_Renderer* renderer, Uint8 r, Uint8 g, Uint8 b, int
 int DotTexture::getColor() {
     return m_color;
 }
+

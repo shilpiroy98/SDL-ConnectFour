@@ -54,9 +54,11 @@ class DotTexture
         int m_color;
         int posX, posY;
         SDL_Rect spriteRect;
+        static SDL_Surface* mloadedSurface;
         //Image dimensions
         int mWidth;
         int mHeight;
 };
+
 
 #endif /* DotTexture_hpp */
