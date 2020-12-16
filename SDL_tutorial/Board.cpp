@@ -40,6 +40,7 @@ bool Board::handleClickEvent(SDL_Renderer* renderer, int x, int y, int turn) {
             last_uncolored_idx = i;
         }
     }
+    
     if(last_uncolored_idx == BOARD_HEIGHT + 1) return false;
     m_dots[column_num][last_uncolored_idx]->setColor(renderer, 210, 16, 155, turn);
     checkWinState(column_num, last_uncolored_idx, turn);
@@ -63,16 +64,22 @@ bool Board::checkWinState(int column_num, int last_colored_idx, int turn) {
     while(cidx >= 0) {
         if(m_dots[cidx][last_colored_idx]->getColor() == turn) {
             cnt++;
+            if(cnt >= 4) return mWon = true;
         }
-        else break;
+        else {
+            break;
+        }
         cidx--;
     }
     cidx = column_num + 1;
     while(cidx < BOARD_WIDTH/DotTexture::SPRITE_SIZE + 1) {
         if(m_dots[cidx][last_colored_idx]->getColor() == turn) {
             cnt++;
+            if(cnt >= 4) return mWon = true;
         }
-        else break;
+        else {
+            break;
+        }
         cidx++;
     }
     if(cnt >= 4) return mWon = true;
@@ -81,18 +88,82 @@ bool Board::checkWinState(int column_num, int last_colored_idx, int turn) {
     while(ridx >= 0) {
         if(m_dots[column_num][ridx]->getColor() == turn) {
             cnt++;
+            if(cnt >= 4) return mWon = true;
         }
-        else break;
+        else {
+            break;
+        }
         ridx--;
     }
     ridx = last_colored_idx + 1;
     while(ridx < BOARD_HEIGHT/DotTexture::SPRITE_SIZE + 1) {
         if(m_dots[column_num][ridx]->getColor() == turn) {
             cnt++;
+            if(cnt >= 4) return mWon = true;
         }
-        else break;
+        else {
+            break;
+        }
         ridx++;
     }
     if(cnt >= 4) return mWon = true;
+    ridx = last_colored_idx;
+    cidx = column_num;
+    cnt = 0;
+    while(ridx >= 0 && cidx < BOARD_WIDTH/DotTexture::SPRITE_SIZE + 1) {
+        if(m_dots[cidx][ridx]->getColor() == turn) {
+            cnt++;
+            if(cnt >= 4) return mWon = true;
+        }
+        else {
+            break;
+        }
+        ridx--;
+        cidx++;
+    }
+    if(cnt >= 4) return mWon = true;
+    ridx = last_colored_idx + 1;
+    cidx = column_num - 1;
+    while(ridx < BOARD_HEIGHT/DotTexture::SPRITE_SIZE + 1 && cidx >= 0) {
+        if(m_dots[cidx][ridx]->getColor() == turn) {
+            cnt++;
+            if(cnt >= 4) return mWon = true;
+        }
+        else {
+            break;
+        }
+        ridx++;
+        cidx--;
+    }
+    ridx = last_colored_idx;
+    cidx = column_num;
+    cnt = 0;
+    while(ridx >= 0 && cidx >= 0) {
+        if(m_dots[cidx][ridx]->getColor() == turn) {
+            cnt++;
+             if(cnt >= 4) return mWon = true;
+        }
+        else {
+            break;
+        }
+        ridx--;
+        cidx--;
+    }
+    if(cnt >= 4) return mWon = true;
+    ridx = last_colored_idx + 1;
+    cidx = column_num + 1;
+    while(ridx < BOARD_HEIGHT/DotTexture::SPRITE_SIZE + 1 && cidx < BOARD_WIDTH/DotTexture::SPRITE_SIZE + 1) {
+        if(m_dots[cidx][ridx]->getColor() == turn) {
+            cnt++;
+        }
+        else {
+            if(cnt >= 4) return mWon = true;
+            break;
+        }
+        ridx++;
+        cidx++;
+    }
+    if(cnt >= 4) return mWon = true;
+   
     return false;
 }

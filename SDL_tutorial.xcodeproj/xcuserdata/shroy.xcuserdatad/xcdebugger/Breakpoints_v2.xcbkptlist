@@ -14,8 +14,8 @@
             filePath = "SDL_tutorial/Board.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "46"
-            endingLineNumber = "46"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
             landmarkName = "Board::handleClickEvent(renderer, x, y, turn)"
             landmarkType = "7">
          </BreakpointContent>

@@ -104,25 +104,33 @@ void DotTexture::render(int x, int y, SDL_Rect *clip, SDL_Renderer* renderer, in
         if(turn == 0) {
             if(posX/SPRITE_SIZE == hoverIndex && posY == 0) {
                 SDL_SetTextureAlphaMod(mTexture, 225);
+                //SDL_SetTextureColorMod(mTexture, 255, 255, 255);
                 SDL_RenderCopy(renderer, mTexture, &spriteRect, &curRect);
                 return;
             }
             SDL_SetTextureAlphaMod(mTexture, 45);
+//            SDL_SetTextureColorMod(mTexture, 10, 10, 10);
+            if(posY > 0)
             SDL_RenderCopy(renderer, mTexture, &spriteRect, &curRect);
         }
         else {
             if(posX/SPRITE_SIZE == hoverIndex && posY == 0) {
                 SDL_SetTextureAlphaMod(mTexture2, 225);
+                //SDL_SetTextureColorMod(mTexture2, 255, 255, 255);
                 SDL_RenderCopy(renderer, mTexture2, &spriteRect, &curRect);
                 return;
             }
             SDL_SetTextureAlphaMod(mTexture, 45);
+//            SDL_SetTextureColorMod(mTexture2, -10, -10, -10);
+            if(posY > 0)
             SDL_RenderCopy(renderer, mTexture, &spriteRect, &curRect);
         }
         
     }
     else {
-        SDL_SetTextureAlphaMod(mTexture, 255);
+        SDL_SetTextureAlphaMod(currentTexture, 255);
+        //SDL_SetTextureColorMod(currentTexture, 255, 255, 255);
+        if(posY > 0)
         SDL_RenderCopy(renderer, currentTexture, &spriteRect, &curRect);
     }
 
