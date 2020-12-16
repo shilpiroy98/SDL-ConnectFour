@@ -8,7 +8,13 @@
 
 #include "DotTexture.hpp"
 
-SDL_Surface* DotTexture::mloadedSurface = NULL;
+SDL_Surface* DotTexture::mloadedSurfaceOne = NULL;
+SDL_Surface* DotTexture::mloadedSurfaceTwo = NULL;
+
+SDL_Texture* DotTexture::mTexture = NULL;
+SDL_Texture* DotTexture::mTexture2 = NULL;
+
+const std::string DotTexture::FILE_PATH = "/Users/shroy/Desktop/SDL_tutorial/SDL_tutorial/";
 
 DotTexture::DotTexture()
 {
@@ -44,52 +50,88 @@ void DotTexture::initialize(SDL_Renderer* renderer) {
     }
 }
 
-bool DotTexture::loadFromFile(std::string path, SDL_Renderer* renderer) {
-    if(mloadedSurface == NULL) {
-        mloadedSurface = IMG_Load(path.c_str());
+bool DotTexture::loadFromFile(std::string path, std::string path2, SDL_Renderer* renderer) {
+    if(mTexture != NULL && mTexture2 != NULL) return true;
+    if(mloadedSurfaceOne == NULL) {
+        mloadedSurfaceOne = IMG_Load(path.c_str());
     }
     
-    if(mloadedSurface == NULL) {
+    if(mloadedSurfaceOne == NULL) {
         printf("null surface, %s", SDL_GetError());
         return 0;
     }
-    SDL_SetColorKey(mloadedSurface, SDL_TRUE, SDL_MapRGB(mloadedSurface->format, 0x00, 0xFF, 0xFF));
-    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, mloadedSurface);
+    //SDL_SetColorKey(mloadedSurfaceOne, SDL_TRUE, SDL_MapRGB(mloadedSurfaceOne->format, 0x00, 0xFF, 0xFF));
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, mloadedSurfaceOne);
     if(texture == NULL) {
         printf("null texture, %s", SDL_GetError());
         return 0;
     }
-    mWidth = mloadedSurface->w;
-    mHeight = mloadedSurface->h;
-    //SDL_FreeSurface(mloadedSurface);
+    mWidth = mloadedSurfaceOne->w;
+    mHeight = mloadedSurfaceOne->h;
     mTexture = texture;
-    return mTexture != NULL;
+    
+    if(mloadedSurfaceTwo == NULL) {
+        mloadedSurfaceTwo = IMG_Load(path2.c_str());
+    }
+    
+    if(mloadedSurfaceTwo == NULL) {
+        printf("null surface, %s", SDL_GetError());
+        return 0;
+    }
+    //SDL_SetColorKey(mloadedSurfaceTwo, SDL_TRUE, SDL_MapRGB(mloadedSurfaceTwo->format, 0x00, 0xFF, 0xFF));
+    SDL_Texture* texture2 = SDL_CreateTextureFromSurface(renderer, mloadedSurfaceTwo);
+    if(texture2 == NULL) {
+        printf("null texture, %s", SDL_GetError());
+        return 0;
+    }
+    mWidth = mloadedSurfaceTwo->w;
+    mHeight = mloadedSurfaceTwo->h;
+    //SDL_FreeSurface(mloadedSurface);
+    mTexture2 = texture2;
+    currentTexture = mTexture;
+    return mTexture != NULL && mTexture2 != NULL;
 }
 
-void DotTexture::render(int x, int y, SDL_Rect *clip, SDL_Renderer* renderer) {
+void DotTexture::render(int x, int y, SDL_Rect *clip, SDL_Renderer* renderer, int turn) {
     SDL_Rect curRect {x, y, 50, 50};
     if(clip != NULL) {
         curRect.w = clip->w/2;
         curRect.h = clip->h/2;
     }
-//    printf(".....");
-    //if(!isColored()) SDL_SetTextureAlphaMod(mTexture, 24);
-    SDL_RenderCopy(renderer, mTexture, &spriteRect, &curRect);
+    if(!isColored()) {
+         SDL_SetTextureAlphaMod(mTexture, 45);
+         SDL_RenderCopy(renderer, mTexture, &spriteRect, &curRect);
+    }
+    else {
+        SDL_SetTextureAlphaMod(mTexture, 255);
+        SDL_RenderCopy(renderer, currentTexture, &spriteRect, &curRect);
+    }
+
 }
 
 void DotTexture::free() {
     if(mTexture != NULL) {
         SDL_DestroyTexture(mTexture);
         mTexture = NULL;
-        mWidth = mHeight = 0;
     }
-    if(mloadedSurface != NULL) {
-        SDL_FreeSurface(mloadedSurface);
+    
+    if(mTexture2 != NULL) {
+        SDL_DestroyTexture(mTexture2);
+        mTexture2 = NULL;
     }
+    mWidth = mHeight = 0;
+    currentTexture = NULL;
+    if(mloadedSurfaceOne != NULL) {
+        SDL_FreeSurface(mloadedSurfaceOne);
+    }
+    if(mloadedSurfaceTwo != NULL) {
+        SDL_FreeSurface(mloadedSurfaceTwo);
+    }
+    mloadedSurfaceOne = mloadedSurfaceTwo = NULL;
 }
 
 bool DotTexture::loadMedia(SDL_Renderer* renderer) {
-    if(!loadFromFile("/Users/shroy/Desktop/SDL_tutorial/SDL_tutorial/rouge.png", renderer)) {
+    if(!loadFromFile(FILE_PATH + "rouge.png", FILE_PATH + "blue.png", renderer)) {
         printf("couldn't load sprite, %s", SDL_GetError());
         return false;
     }
@@ -107,10 +149,8 @@ bool DotTexture::isColored() {
 void DotTexture::setColor(SDL_Renderer* renderer, Uint8 r, Uint8 g, Uint8 b, int turn) {
     m_isColored = true;
     m_color = turn;
-    SDL_SetTextureColorMod(mTexture, r, g, b);
-    if(turn == 0)
-    SDL_SetTextureAlphaMod(mTexture, 124);
-    render(posX, posY, &spriteRect, renderer);
+    if(turn == 0) currentTexture = mTexture;
+    else currentTexture = mTexture2;
 }
 
 int DotTexture::getColor() {

@@ -26,13 +26,13 @@ class DotTexture
         ~DotTexture();
 
         //Loads image at specified path
-        bool loadFromFile( std::string path, SDL_Renderer* renderer);
+        bool loadFromFile(std::string path, std::string path2, SDL_Renderer* renderer);
 
         //Deallocates texture
         void free();
 
         //Renders texture at given point
-        void render( int x, int y, SDL_Rect* clip , SDL_Renderer* renderer);
+        void render(int x, int y, SDL_Rect *clip, SDL_Renderer* renderer, int turn = -1);
     
         void setColor(SDL_Renderer* renderer, Uint8 r, Uint8 g, Uint8 b, int turn);
     
@@ -46,15 +46,18 @@ class DotTexture
         bool isColored();
         int getColor();
         const static int SPRITE_SIZE = 50;
+        static const std::string FILE_PATH;
 
     private:
         //The actual hardware texture
-        SDL_Texture* mTexture;
+        static SDL_Texture* mTexture;
+        static SDL_Texture* mTexture2;
+        SDL_Texture* currentTexture;
         bool m_isColored;
         int m_color;
         int posX, posY;
         SDL_Rect spriteRect;
-        static SDL_Surface* mloadedSurface;
+        static SDL_Surface* mloadedSurfaceOne, *mloadedSurfaceTwo;
         //Image dimensions
         int mWidth;
         int mHeight;

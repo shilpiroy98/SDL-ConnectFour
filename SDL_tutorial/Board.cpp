@@ -42,12 +42,7 @@ bool Board::handleClickEvent(SDL_Renderer* renderer, int x, int y, int turn) {
         }
     }
     if(last_uncolored_idx == BOARD_HEIGHT + 1) return false;
-    if(turn == 0) {
-        m_dots[column_num][last_uncolored_idx]->setColor(renderer, 225, 100, 255, turn);
-    }
-    else {
-        m_dots[column_num][last_uncolored_idx]->setColor(renderer, 210, 16, 155, turn);
-    }
+    m_dots[column_num][last_uncolored_idx]->setColor(renderer, 210, 16, 155, turn);
     checkWinState(column_num, last_uncolored_idx, turn);
     
     return true;

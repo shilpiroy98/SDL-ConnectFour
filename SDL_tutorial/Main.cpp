@@ -34,6 +34,8 @@ int main(int argc, char * argv[]) {
         GameManager* gameMgr = new GameManager(renderer);
         int turn = 0;
         while(!quit) {
+            SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+            SDL_RenderClear(renderer);
             if(gameMgr->checkWinState()) {
                            SDL_Delay(2000);
                            SDL_RenderClear(renderer);
@@ -55,8 +57,6 @@ int main(int argc, char * argv[]) {
                     break;
                 }
             }
-            SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-            SDL_RenderClear(renderer);
             gameMgr->displayBoard(renderer);
             SDL_RenderPresent(renderer);
         }
