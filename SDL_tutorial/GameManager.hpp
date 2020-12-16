@@ -17,8 +17,9 @@ class GameManager {
 public:
     GameManager(SDL_Renderer* renderer);
     ~GameManager();
-    void displayBoard(SDL_Renderer* renderer);
+    void displayBoard(SDL_Renderer* renderer, int turn);
     bool handleBoardClickEvent(SDL_Renderer* renderer, int x, int y, int turn);
+    bool handleHoverEvent(SDL_Renderer* renderer, int x, int y, int turn);
     bool checkWinState();
 };
 #endif /* GameManager_hpp */

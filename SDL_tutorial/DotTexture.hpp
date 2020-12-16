@@ -38,6 +38,7 @@ class DotTexture
     
         bool loadMedia(SDL_Renderer* renderer);
         void initialize(SDL_Renderer* renderer);
+        static void setHoverIndex(int x);
 
         //Gets image dimensions
         int getWidth();
@@ -52,6 +53,7 @@ class DotTexture
         //The actual hardware texture
         static SDL_Texture* mTexture;
         static SDL_Texture* mTexture2;
+        static int hoverIndex;
         SDL_Texture* currentTexture;
         bool m_isColored;
         int m_color;

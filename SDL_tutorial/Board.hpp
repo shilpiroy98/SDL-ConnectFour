@@ -16,7 +16,6 @@ class Board {
     const static int BOARD_WIDTH = 640;
     const static int BOARD_HEIGHT = 480;
     DotTexture* m_dots[BOARD_WIDTH + 1][BOARD_HEIGHT + 1];
-    int m_lastRowFill[BOARD_HEIGHT + 1];
     bool mWon;
     
 public:
@@ -27,8 +26,9 @@ public:
     void colorBoard(Uint8 r, Uint8 g, Uint8 b, Uint8 a, SDL_Renderer* renderer);
     static int getBoardWidth();
     static int getBoardHeight();
-    void display(SDL_Renderer* renderer);
+    void display(SDL_Renderer* renderer, int turn);
     bool handleClickEvent(SDL_Renderer* renderer, int x, int y, int turn);
+    bool handleHoverEvent(SDL_Renderer* renderer, int x, int y, int turn);
     bool checkWinState(int row, int col, int turn);
     bool checkIfWon();
     

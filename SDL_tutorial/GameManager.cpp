@@ -14,12 +14,16 @@ GameManager::GameManager(SDL_Renderer* renderer) {
     board = new Board(renderer);
 }
 
-void GameManager::displayBoard(SDL_Renderer* renderer) {
-    board->display(renderer);
+void GameManager::displayBoard(SDL_Renderer* renderer, int turn) {
+    board->display(renderer, turn);
 }
 
 bool GameManager::handleBoardClickEvent(SDL_Renderer *renderer, int x, int y, int turn) {
     return board->handleClickEvent(renderer, x, y, turn);
+}
+
+bool GameManager::handleHoverEvent(SDL_Renderer *renderer, int x, int y, int turn) {
+    return board->handleHoverEvent(renderer, x, y, turn);
 }
 
 bool GameManager::checkWinState() {

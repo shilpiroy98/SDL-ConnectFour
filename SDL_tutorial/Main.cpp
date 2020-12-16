@@ -56,8 +56,14 @@ int main(int argc, char * argv[]) {
                     }
                     break;
                 }
+                else if(e.type == SDL_MOUSEMOTION) {
+                    int x, y;
+                    SDL_GetMouseState( &x, &y );
+                    gameMgr->handleHoverEvent(renderer, x, y, turn);
+                    break;
+                }
             }
-            gameMgr->displayBoard(renderer);
+            gameMgr->displayBoard(renderer, turn);
             SDL_RenderPresent(renderer);
         }
     SDL_DestroyRenderer(renderer);

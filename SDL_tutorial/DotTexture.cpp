@@ -14,6 +14,8 @@ SDL_Surface* DotTexture::mloadedSurfaceTwo = NULL;
 SDL_Texture* DotTexture::mTexture = NULL;
 SDL_Texture* DotTexture::mTexture2 = NULL;
 
+int DotTexture::hoverIndex = -1;
+
 const std::string DotTexture::FILE_PATH = "/Users/shroy/Desktop/SDL_tutorial/SDL_tutorial/";
 
 DotTexture::DotTexture()
@@ -99,8 +101,25 @@ void DotTexture::render(int x, int y, SDL_Rect *clip, SDL_Renderer* renderer, in
         curRect.h = clip->h/2;
     }
     if(!isColored()) {
-         SDL_SetTextureAlphaMod(mTexture, 45);
-         SDL_RenderCopy(renderer, mTexture, &spriteRect, &curRect);
+        if(turn == 0) {
+            if(posX/SPRITE_SIZE == hoverIndex && posY == 0) {
+                SDL_SetTextureAlphaMod(mTexture, 225);
+                SDL_RenderCopy(renderer, mTexture, &spriteRect, &curRect);
+                return;
+            }
+            SDL_SetTextureAlphaMod(mTexture, 45);
+            SDL_RenderCopy(renderer, mTexture, &spriteRect, &curRect);
+        }
+        else {
+            if(posX/SPRITE_SIZE == hoverIndex && posY == 0) {
+                SDL_SetTextureAlphaMod(mTexture2, 225);
+                SDL_RenderCopy(renderer, mTexture2, &spriteRect, &curRect);
+                return;
+            }
+            SDL_SetTextureAlphaMod(mTexture, 45);
+            SDL_RenderCopy(renderer, mTexture, &spriteRect, &curRect);
+        }
+        
     }
     else {
         SDL_SetTextureAlphaMod(mTexture, 255);
@@ -155,5 +174,9 @@ void DotTexture::setColor(SDL_Renderer* renderer, Uint8 r, Uint8 g, Uint8 b, int
 
 int DotTexture::getColor() {
     return m_color;
+}
+
+void DotTexture::setHoverIndex(int x) {
+    hoverIndex = x;
 }
 

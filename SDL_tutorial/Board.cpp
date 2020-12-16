@@ -15,7 +15,6 @@ Board::Board(SDL_Renderer* renderer) {
             m_dots[i/DotTexture::SPRITE_SIZE][j/DotTexture::SPRITE_SIZE] = new DotTexture(i, j);
             m_dots[i/DotTexture::SPRITE_SIZE][j/DotTexture::SPRITE_SIZE]->initialize(renderer);
         }
-        m_lastRowFill[i/DotTexture::SPRITE_SIZE] = BOARD_HEIGHT;
     }
 }
 int Board::getBoardWidth() {
@@ -25,10 +24,10 @@ int Board::getBoardHeight() {
     return BOARD_HEIGHT;
 }
 
-void Board::display(SDL_Renderer* renderer) {
+void Board::display(SDL_Renderer* renderer, int turn) {
     for(int i = 0; i < BOARD_WIDTH; i += DotTexture::SPRITE_SIZE) {
         for(int j = 0; j < BOARD_HEIGHT; j += DotTexture::SPRITE_SIZE) {
-            m_dots[i/DotTexture::SPRITE_SIZE][j/DotTexture::SPRITE_SIZE]->render(i, j, NULL, renderer);
+            m_dots[i/DotTexture::SPRITE_SIZE][j/DotTexture::SPRITE_SIZE]->render(i, j, NULL, renderer, turn);
         }
     }
 }
@@ -45,6 +44,12 @@ bool Board::handleClickEvent(SDL_Renderer* renderer, int x, int y, int turn) {
     m_dots[column_num][last_uncolored_idx]->setColor(renderer, 210, 16, 155, turn);
     checkWinState(column_num, last_uncolored_idx, turn);
     
+    return true;
+}
+
+bool Board::handleHoverEvent(SDL_Renderer *renderer, int x, int y, int turn) {
+    int col_id = x/DotTexture::SPRITE_SIZE;
+    DotTexture::setHoverIndex(col_id);
     return true;
 }
 
