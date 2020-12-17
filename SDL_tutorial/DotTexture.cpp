@@ -95,11 +95,11 @@ bool DotTexture::loadFromFile(std::string path, std::string path2, SDL_Renderer*
 }
 
 void DotTexture::render(int x, int y, SDL_Rect *clip, SDL_Renderer* renderer, int turn) {
-    SDL_Rect curRect {x, y, 50, 50};
-    if(clip != NULL) {
-        curRect.w = clip->w/2;
-        curRect.h = clip->h/2;
-    }
+    SDL_Rect curRect {x, y, 32, 32};
+//    if(clip != NULL) {
+//        curRect.w = clip->w/2;
+//        curRect.h = clip->h/2;
+//    }
     if(!isColored()) {
         if(turn == 0) {
             if(posX/SPRITE_SIZE == hoverIndex && posY == 0) {

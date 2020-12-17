@@ -35,7 +35,7 @@ void Board::display(SDL_Renderer* renderer, int turn) {
 bool Board::handleClickEvent(SDL_Renderer* renderer, int x, int y, int turn) {
     int column_num = x/DotTexture::SPRITE_SIZE;
     int last_uncolored_idx = BOARD_HEIGHT + 1;
-    for(int i = 0; i < BOARD_HEIGHT/DotTexture::SPRITE_SIZE + 1; i++) {
+    for(int i = 0; i < BOARD_HEIGHT/DotTexture::SPRITE_SIZE; i++) {
         if(!m_dots[column_num][i]->isColored()) {
             last_uncolored_idx = i;
         }
@@ -58,33 +58,37 @@ bool Board::checkIfWon() {
     return mWon;
 }
 
-bool Board::checkWinState(int column_num, int last_colored_idx, int turn) {
-    int cidx = column_num;
-    int cnt = 0;
-    while(cidx >= 0) {
-        if(m_dots[cidx][last_colored_idx]->getColor() == turn) {
-            cnt++;
-            if(cnt >= 4) return mWon = true;
-        }
-        else {
-            break;
-        }
-        cidx--;
-    }
-    cidx = column_num + 1;
-    while(cidx < BOARD_WIDTH/DotTexture::SPRITE_SIZE + 1) {
-        if(m_dots[cidx][last_colored_idx]->getColor() == turn) {
-            cnt++;
-            if(cnt >= 4) return mWon = true;
-        }
-        else {
-            break;
-        }
-        cidx++;
-    }
-    if(cnt >= 4) return mWon = true;
+bool Board::checkRowWin(int column_num, int last_colored_idx, int turn) {
+       int cidx = column_num;
+       int cnt = 0;
+       while(cidx >= 0) {
+           if(m_dots[cidx][last_colored_idx]->getColor() == turn) {
+               cnt++;
+               if(cnt >= 4) return mWon = true;
+           }
+           else {
+               break;
+           }
+           cidx--;
+       }
+       cidx = column_num + 1;
+       while(cidx < BOARD_WIDTH/DotTexture::SPRITE_SIZE + 1) {
+           if(m_dots[cidx][last_colored_idx]->getColor() == turn) {
+               cnt++;
+               if(cnt >= 4) return mWon = true;
+           }
+           else {
+               break;
+           }
+           cidx++;
+       }
+       if(cnt >= 4) return mWon = true;
+     return false;
+}
+
+bool Board::checkColumnWin(int column_num, int last_colored_idx, int turn) {
     int ridx = last_colored_idx;
-    cnt = 0;
+    int cnt = 0;
     while(ridx >= 0) {
         if(m_dots[column_num][ridx]->getColor() == turn) {
             cnt++;
@@ -96,7 +100,7 @@ bool Board::checkWinState(int column_num, int last_colored_idx, int turn) {
         ridx--;
     }
     ridx = last_colored_idx + 1;
-    while(ridx < BOARD_HEIGHT/DotTexture::SPRITE_SIZE + 1) {
+    while(ridx < BOARD_HEIGHT/DotTexture::SPRITE_SIZE) {
         if(m_dots[column_num][ridx]->getColor() == turn) {
             cnt++;
             if(cnt >= 4) return mWon = true;
@@ -107,10 +111,14 @@ bool Board::checkWinState(int column_num, int last_colored_idx, int turn) {
         ridx++;
     }
     if(cnt >= 4) return mWon = true;
-    ridx = last_colored_idx;
-    cidx = column_num;
-    cnt = 0;
-    while(ridx >= 0 && cidx < BOARD_WIDTH/DotTexture::SPRITE_SIZE + 1) {
+     return false;
+}
+
+bool Board::checkLeftDiagonalWin(int column_num, int last_colored_idx, int turn) {
+    int ridx = last_colored_idx;
+    int cidx = column_num;
+    int cnt = 0;
+    while(ridx >= 0 && cidx < BOARD_WIDTH/DotTexture::SPRITE_SIZE) {
         if(m_dots[cidx][ridx]->getColor() == turn) {
             cnt++;
             if(cnt >= 4) return mWon = true;
@@ -124,7 +132,7 @@ bool Board::checkWinState(int column_num, int last_colored_idx, int turn) {
     if(cnt >= 4) return mWon = true;
     ridx = last_colored_idx + 1;
     cidx = column_num - 1;
-    while(ridx < BOARD_HEIGHT/DotTexture::SPRITE_SIZE + 1 && cidx >= 0) {
+    while(ridx < BOARD_HEIGHT/DotTexture::SPRITE_SIZE && cidx >= 0) {
         if(m_dots[cidx][ridx]->getColor() == turn) {
             cnt++;
             if(cnt >= 4) return mWon = true;
@@ -135,9 +143,13 @@ bool Board::checkWinState(int column_num, int last_colored_idx, int turn) {
         ridx++;
         cidx--;
     }
-    ridx = last_colored_idx;
-    cidx = column_num;
-    cnt = 0;
+     return false;
+}
+
+bool Board::checkRightDiagonalWin(int column_num, int last_colored_idx, int turn) {
+    int ridx = last_colored_idx;
+    int cidx = column_num;
+    int cnt = 0;
     while(ridx >= 0 && cidx >= 0) {
         if(m_dots[cidx][ridx]->getColor() == turn) {
             cnt++;
@@ -152,7 +164,7 @@ bool Board::checkWinState(int column_num, int last_colored_idx, int turn) {
     if(cnt >= 4) return mWon = true;
     ridx = last_colored_idx + 1;
     cidx = column_num + 1;
-    while(ridx < BOARD_HEIGHT/DotTexture::SPRITE_SIZE + 1 && cidx < BOARD_WIDTH/DotTexture::SPRITE_SIZE + 1) {
+    while(ridx < BOARD_HEIGHT/DotTexture::SPRITE_SIZE && cidx < BOARD_WIDTH/DotTexture::SPRITE_SIZE) {
         if(m_dots[cidx][ridx]->getColor() == turn) {
             cnt++;
         }
@@ -164,6 +176,14 @@ bool Board::checkWinState(int column_num, int last_colored_idx, int turn) {
         cidx++;
     }
     if(cnt >= 4) return mWon = true;
-   
     return false;
+}
+
+bool Board::checkWinState(int column_num, int last_colored_idx, int turn) {
+    return (
+            checkRowWin(column_num, last_colored_idx, turn) ||
+            checkColumnWin(column_num, last_colored_idx, turn) ||
+            checkLeftDiagonalWin(column_num, last_colored_idx, turn) ||
+            checkRightDiagonalWin(column_num, last_colored_idx, turn)
+    );
 }

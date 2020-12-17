@@ -46,7 +46,7 @@ class DotTexture
         
         bool isColored();
         int getColor();
-        const static int SPRITE_SIZE = 50;
+        const static int SPRITE_SIZE = 32;
         static const std::string FILE_PATH;
 
     private:

@@ -13,8 +13,8 @@
 #include <stdio.h>
 
 class Board {
-    const static int BOARD_WIDTH = 640;
-    const static int BOARD_HEIGHT = 480;
+    const static int BOARD_WIDTH = 270;
+    const static int BOARD_HEIGHT = 285;
     DotTexture* m_dots[BOARD_WIDTH + 1][BOARD_HEIGHT + 1];
     bool mWon;
     
@@ -31,6 +31,10 @@ public:
     bool handleHoverEvent(SDL_Renderer* renderer, int x, int y, int turn);
     bool checkWinState(int row, int col, int turn);
     bool checkIfWon();
+    bool checkColumnWin(int column_num, int last_colored_idx, int turn);
+    bool checkRowWin(int column_num, int last_colored_idx, int turn);
+    bool checkLeftDiagonalWin(int column_num, int last_colored_idx, int turn);
+    bool checkRightDiagonalWin(int column_num, int last_colored_idx, int turn);
     
 };
 #endif /* Board_hpp */
