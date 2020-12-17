@@ -11,12 +11,14 @@
 
 #include "DotTexture.hpp"
 #include <stdio.h>
+#include <vector>
 
 class Board {
     const static int BOARD_WIDTH = 270;
     const static int BOARD_HEIGHT = 285;
     DotTexture* m_dots[BOARD_WIDTH + 1][BOARD_HEIGHT + 1];
-    bool mWon;
+    static bool mWon;
+    int last_x, last_y;
     
 public:
     Board(SDL_Renderer* renderer);
@@ -29,12 +31,13 @@ public:
     void display(SDL_Renderer* renderer, int turn);
     bool handleClickEvent(SDL_Renderer* renderer, int x, int y, int turn);
     bool handleHoverEvent(SDL_Renderer* renderer, int x, int y, int turn);
-    bool checkWinState(int row, int col, int turn);
-    bool checkIfWon();
-    bool checkColumnWin(int column_num, int last_colored_idx, int turn);
-    bool checkRowWin(int column_num, int last_colored_idx, int turn);
-    bool checkLeftDiagonalWin(int column_num, int last_colored_idx, int turn);
-    bool checkRightDiagonalWin(int column_num, int last_colored_idx, int turn);
+    bool checkWinState(SDL_Renderer* renderer, int turn);
+    static bool checkIfWon();
+    bool checkColumnWin(int turn, std::vector<std::pair<int, int> > &v);
+    bool checkRowWin(int turn, std::vector<std::pair<int, int> > &v);
+    bool checkLeftDiagonalWin(int turn, std::vector<std::pair<int, int> > &v);
+    bool checkRightDiagonalWin(int turn, std::vector<std::pair<int, int> > &v);
+    void highlightWinIndexes(SDL_Renderer* renderer, std::vector<std::pair<int, int> > win_indexes, int turn);
     
 };
 #endif /* Board_hpp */

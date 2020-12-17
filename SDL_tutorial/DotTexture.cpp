@@ -94,34 +94,33 @@ bool DotTexture::loadFromFile(std::string path, std::string path2, SDL_Renderer*
     return mTexture != NULL && mTexture2 != NULL;
 }
 
-void DotTexture::render(int x, int y, SDL_Rect *clip, SDL_Renderer* renderer, int turn) {
-    SDL_Rect curRect {x, y, 32, 32};
-//    if(clip != NULL) {
-//        curRect.w = clip->w/2;
-//        curRect.h = clip->h/2;
-//    }
+void DotTexture::highlight(SDL_Renderer* renderer, int turn) {
+    SDL_Rect curRect {posX, posY, SPRITE_SIZE, SPRITE_SIZE};
+    SDL_SetTextureColorMod(currentTexture, 12, 250, 18);
+    SDL_SetTextureAlphaMod(currentTexture, 250);
+    SDL_RenderCopy(renderer, currentTexture, &spriteRect, &curRect);
+}
+
+void DotTexture::render(SDL_Renderer* renderer, int turn) {
+    SDL_Rect curRect {posX, posY, SPRITE_SIZE, SPRITE_SIZE};
     if(!isColored()) {
         if(turn == 0) {
             if(posX/SPRITE_SIZE == hoverIndex && posY == 0) {
                 SDL_SetTextureAlphaMod(mTexture, 225);
-                //SDL_SetTextureColorMod(mTexture, 255, 255, 255);
                 SDL_RenderCopy(renderer, mTexture, &spriteRect, &curRect);
                 return;
             }
             SDL_SetTextureAlphaMod(mTexture, 45);
-//            SDL_SetTextureColorMod(mTexture, 10, 10, 10);
             if(posY > 0)
             SDL_RenderCopy(renderer, mTexture, &spriteRect, &curRect);
         }
         else {
             if(posX/SPRITE_SIZE == hoverIndex && posY == 0) {
                 SDL_SetTextureAlphaMod(mTexture2, 225);
-                //SDL_SetTextureColorMod(mTexture2, 255, 255, 255);
                 SDL_RenderCopy(renderer, mTexture2, &spriteRect, &curRect);
                 return;
             }
             SDL_SetTextureAlphaMod(mTexture, 45);
-//            SDL_SetTextureColorMod(mTexture2, -10, -10, -10);
             if(posY > 0)
             SDL_RenderCopy(renderer, mTexture, &spriteRect, &curRect);
         }
@@ -129,7 +128,6 @@ void DotTexture::render(int x, int y, SDL_Rect *clip, SDL_Renderer* renderer, in
     }
     else {
         SDL_SetTextureAlphaMod(currentTexture, 255);
-        //SDL_SetTextureColorMod(currentTexture, 255, 255, 255);
         if(posY > 0)
         SDL_RenderCopy(renderer, currentTexture, &spriteRect, &curRect);
     }

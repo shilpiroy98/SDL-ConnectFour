@@ -26,6 +26,6 @@ bool GameManager::handleHoverEvent(SDL_Renderer *renderer, int x, int y, int tur
     return board->handleHoverEvent(renderer, x, y, turn);
 }
 
-bool GameManager::checkWinState() {
-    return board->checkIfWon();
+bool GameManager::checkWinState(SDL_Renderer* renderer, int turn) {
+    return board->checkWinState(renderer, turn);
 }

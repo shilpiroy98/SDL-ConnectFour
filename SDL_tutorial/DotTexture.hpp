@@ -32,13 +32,14 @@ class DotTexture
         void free();
 
         //Renders texture at given point
-        void render(int x, int y, SDL_Rect *clip, SDL_Renderer* renderer, int turn = -1);
+        void render(SDL_Renderer* renderer, int turn = -1);
     
         void setColor(SDL_Renderer* renderer, Uint8 r, Uint8 g, Uint8 b, int turn);
     
         bool loadMedia(SDL_Renderer* renderer);
         void initialize(SDL_Renderer* renderer);
         static void setHoverIndex(int x);
+        void highlight(SDL_Renderer* renderer, int turn);
 
         //Gets image dimensions
         int getWidth();
