@@ -68,6 +68,7 @@ int main(int argc, char * argv[]) {
             
             SDL_RenderPresent(renderer);
         }
+    delete gameMgr;
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     renderer = NULL;

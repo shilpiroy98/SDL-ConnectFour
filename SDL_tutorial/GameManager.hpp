@@ -20,6 +20,6 @@ public:
     void displayBoard(SDL_Renderer* const renderer, int const* turn) const;
     bool handleBoardClickEvent(SDL_Renderer* const renderer, int const* x, int const* y, int const* turn) const;
     bool handleHoverEvent(SDL_Renderer* const renderer, int const* x, int const* y, int const* turn) const;
-    bool checkWinState(SDL_Renderer* const renderer, int const* turn) const;
+    bool checkWinState(SDL_Renderer* const renderer, int const*turn) const;
 };
 #endif /* GameManager_hpp */

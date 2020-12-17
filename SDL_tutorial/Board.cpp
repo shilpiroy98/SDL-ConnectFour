@@ -20,6 +20,14 @@ Board::Board(SDL_Renderer* renderer) {
     }
 }
 
+Board::~Board() {
+    for(int i = 0; i < BOARD_WIDTH; i += DotTexture::SPRITE_SIZE) {
+        for(int j = 0; j < BOARD_HEIGHT; j += DotTexture::SPRITE_SIZE) {
+            delete m_dots[i/DotTexture::SPRITE_SIZE][j/DotTexture::SPRITE_SIZE];
+        }
+    }
+}
+
 int Board::getBoardWidth() {
     return BOARD_WIDTH;
 }

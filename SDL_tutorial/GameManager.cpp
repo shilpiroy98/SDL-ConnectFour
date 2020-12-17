@@ -14,6 +14,10 @@ GameManager::GameManager(SDL_Renderer* renderer) {
     board = new Board(renderer);
 }
 
+GameManager::~GameManager() {
+    delete board;
+}
+
 void GameManager::displayBoard(SDL_Renderer* const renderer, int const* turn) const {
     board->display(renderer, turn);
 }
