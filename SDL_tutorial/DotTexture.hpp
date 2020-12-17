@@ -26,20 +26,20 @@ class DotTexture
         ~DotTexture();
 
         //Loads image at specified path
-        bool loadFromFile(std::string path, std::string path2, SDL_Renderer* renderer);
+        bool loadFromFile(std::string path, std::string path2, SDL_Renderer* const renderer);
 
         //Deallocates texture
         void free();
 
         //Renders texture at given point
-        void render(SDL_Renderer* renderer, int turn = -1) const;
+        void render(SDL_Renderer* const renderer, int const* turn) const;
     
-        void setColor(SDL_Renderer* renderer, Uint8 r, Uint8 g, Uint8 b, int turn);
+        void setColor(SDL_Renderer* const renderer, Uint8 r, Uint8 g, Uint8 b, int const* turn);
     
-        bool loadMedia(SDL_Renderer* renderer);
-        void initialize(SDL_Renderer* renderer);
+        bool loadMedia(SDL_Renderer* const renderer);
+        void initialize(SDL_Renderer* const renderer);
         static void setHoverIndex(int x);
-        void highlight(SDL_Renderer* renderer, int turn) const;
+        void highlight(SDL_Renderer* const renderer, int const* turn) const;
 
         //Gets image dimensions
         int getWidth();

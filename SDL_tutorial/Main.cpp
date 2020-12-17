@@ -36,7 +36,7 @@ int main(int argc, char * argv[]) {
         while(!quit) {
             SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
             SDL_RenderClear(renderer);
-            gameMgr->displayBoard(renderer, turn);
+            gameMgr->displayBoard(renderer, &turn);
             bool click = false;
             while(SDL_PollEvent(&e) != 0) {
                 if(e.type == SDL_QUIT) {
@@ -46,7 +46,7 @@ int main(int argc, char * argv[]) {
                 if(e.type == SDL_MOUSEBUTTONDOWN) {
                     int x, y;
                     SDL_GetMouseState( &x, &y );
-                    if(gameMgr->handleBoardClickEvent(renderer, x, y, turn)) {
+                    if(gameMgr->handleBoardClickEvent(renderer, &x, &y, &turn)) {
                         click = true;
                         break;
                     }
@@ -54,12 +54,12 @@ int main(int argc, char * argv[]) {
                 else if(e.type == SDL_MOUSEMOTION) {
                     int x, y;
                     SDL_GetMouseState( &x, &y );
-                    gameMgr->handleHoverEvent(renderer, x, y, turn);
+                    gameMgr->handleHoverEvent(renderer, &x, &y, &turn);
                     break;
                 }
             }
             
-            if(gameMgr->checkWinState(renderer, turn)) {
+            if(click && gameMgr->checkWinState(renderer, &turn)) {
                 SDL_RenderPresent(renderer);
                 SDL_Delay(2000);
                 break;

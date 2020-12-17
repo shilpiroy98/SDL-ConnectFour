@@ -15,11 +15,11 @@
 class GameManager {
     Board* board;
 public:
-    GameManager(SDL_Renderer* renderer);
+    GameManager(SDL_Renderer* const renderer);
     ~GameManager();
-    void displayBoard(SDL_Renderer* renderer, int turn) const;
-    bool handleBoardClickEvent(SDL_Renderer* renderer, int x, int y, int turn) const;
-    bool handleHoverEvent(SDL_Renderer* renderer, int x, int y, int turn) const;
-    bool checkWinState(SDL_Renderer* renderer, int turn) const;
+    void displayBoard(SDL_Renderer* const renderer, int const* turn) const;
+    bool handleBoardClickEvent(SDL_Renderer* const renderer, int const* x, int const* y, int const* turn) const;
+    bool handleHoverEvent(SDL_Renderer* const renderer, int const* x, int const* y, int const* turn) const;
+    bool checkWinState(SDL_Renderer* const renderer, int const* turn) const;
 };
 #endif /* GameManager_hpp */

@@ -28,7 +28,7 @@ int Board::getBoardHeight() {
     return BOARD_HEIGHT;
 }
 
-void Board::display(SDL_Renderer* renderer, int turn) const {
+void Board::display(SDL_Renderer* const renderer, int const* turn) const {
     for(int i = 0; i < BOARD_WIDTH; i += DotTexture::SPRITE_SIZE) {
         for(int j = 0; j < BOARD_HEIGHT; j += DotTexture::SPRITE_SIZE) {
             m_dots[i/DotTexture::SPRITE_SIZE][j/DotTexture::SPRITE_SIZE]->render(renderer, turn);
@@ -36,8 +36,8 @@ void Board::display(SDL_Renderer* renderer, int turn) const {
     }
 }
 
-bool Board::handleClickEvent(SDL_Renderer* renderer, int x, int y, int turn) {
-    int column_num = x/DotTexture::SPRITE_SIZE;
+bool Board::handleClickEvent(SDL_Renderer* renderer, int const* x, int const* y, int const* turn) {
+    int column_num = (*x)/DotTexture::SPRITE_SIZE;
     int last_uncolored_idx = BOARD_HEIGHT + 1;
     for(int i = 0; i < BOARD_HEIGHT/DotTexture::SPRITE_SIZE; i++) {
         if(!m_dots[column_num][i]->isColored()) {
@@ -53,17 +53,17 @@ bool Board::handleClickEvent(SDL_Renderer* renderer, int x, int y, int turn) {
     return true;
 }
 
-bool Board::handleHoverEvent(SDL_Renderer *renderer, int x, int y, int turn) const{
-    int col_id = x/DotTexture::SPRITE_SIZE;
+bool Board::handleHoverEvent(SDL_Renderer *renderer, int const* x, int const* y, int const* turn) const{
+    int col_id = (*x)/DotTexture::SPRITE_SIZE;
     DotTexture::setHoverIndex(col_id);
     return true;
 }
 
-bool Board::checkRowWin(int turn, std::vector<std::pair<int, int> > &v) const {
+bool Board::checkRowWin(int const* turn, std::vector<std::pair<int, int> > &v) const {
        int cidx = last_x;
        int cnt = 0;
        while(cidx >= 0) {
-           if(m_dots[cidx][last_y]->getColor() == turn) {
+           if(m_dots[cidx][last_y]->getColor() == *turn) {
                cnt++;
                v.push_back(std::make_pair(cidx, last_y));
            }
@@ -74,7 +74,7 @@ bool Board::checkRowWin(int turn, std::vector<std::pair<int, int> > &v) const {
        }
        cidx = last_x + 1;
        while(cidx < BOARD_WIDTH/DotTexture::SPRITE_SIZE + 1) {
-           if(m_dots[cidx][last_y]->getColor() == turn) {
+           if(m_dots[cidx][last_y]->getColor() == *turn) {
                cnt++;
                v.push_back(std::make_pair(cidx, last_y));
            }
@@ -87,11 +87,11 @@ bool Board::checkRowWin(int turn, std::vector<std::pair<int, int> > &v) const {
      return false;
 }
 
-bool Board::checkColumnWin(int turn, std::vector<std::pair<int, int> > &v) const {
+bool Board::checkColumnWin(int const* turn, std::vector<std::pair<int, int> > &v) const {
     int ridx = last_y;
     int cnt = 0;
     while(ridx >= 0) {
-        if(m_dots[last_x][ridx]->getColor() == turn) {
+        if(m_dots[last_x][ridx]->getColor() == *turn) {
             cnt++;
             v.push_back(std::make_pair(last_x, ridx));
         }
@@ -102,7 +102,7 @@ bool Board::checkColumnWin(int turn, std::vector<std::pair<int, int> > &v) const
     }
     ridx = last_y + 1;
     while(ridx < BOARD_HEIGHT/DotTexture::SPRITE_SIZE) {
-        if(m_dots[last_x][ridx]->getColor() == turn) {
+        if(m_dots[last_x][ridx]->getColor() == *turn) {
             cnt++;
             v.push_back(std::make_pair(last_x, ridx));
         }
@@ -116,12 +116,12 @@ bool Board::checkColumnWin(int turn, std::vector<std::pair<int, int> > &v) const
      return false;
 }
 
-bool Board::checkLeftDiagonalWin(int turn, std::vector<std::pair<int, int> > &v) const {
+bool Board::checkLeftDiagonalWin(int const* turn, std::vector<std::pair<int, int> > &v) const {
     int ridx = last_y;
     int cidx = last_x;
     int cnt = 0;
     while(ridx >= 0 && cidx < BOARD_WIDTH/DotTexture::SPRITE_SIZE) {
-        if(m_dots[cidx][ridx]->getColor() == turn) {
+        if(m_dots[cidx][ridx]->getColor() == *turn) {
             cnt++;
             v.push_back(std::make_pair(cidx, ridx));
         }
@@ -134,7 +134,7 @@ bool Board::checkLeftDiagonalWin(int turn, std::vector<std::pair<int, int> > &v)
     ridx = last_y + 1;
     cidx = last_x - 1;
     while(ridx < BOARD_HEIGHT/DotTexture::SPRITE_SIZE && cidx >= 0) {
-        if(m_dots[cidx][ridx]->getColor() == turn) {
+        if(m_dots[cidx][ridx]->getColor() == *turn) {
             cnt++;
             v.push_back(std::make_pair(cidx, ridx));
         }
@@ -149,12 +149,12 @@ bool Board::checkLeftDiagonalWin(int turn, std::vector<std::pair<int, int> > &v)
      return false;
 }
 
-bool Board::checkRightDiagonalWin(int turn, std::vector<std::pair<int, int> > &v) const {
+bool Board::checkRightDiagonalWin(int const* turn, std::vector<std::pair<int, int> > &v) const {
     int ridx = last_y;
     int cidx = last_x;
     int cnt = 0;
     while(ridx >= 0 && cidx >= 0) {
-        if(m_dots[cidx][ridx]->getColor() == turn) {
+        if(m_dots[cidx][ridx]->getColor() == *turn) {
             cnt++;
             v.push_back(std::make_pair(cidx, ridx));
         }
@@ -167,7 +167,7 @@ bool Board::checkRightDiagonalWin(int turn, std::vector<std::pair<int, int> > &v
     ridx = last_y + 1;
     cidx = last_x + 1;
     while(ridx < BOARD_HEIGHT/DotTexture::SPRITE_SIZE && cidx < BOARD_WIDTH/DotTexture::SPRITE_SIZE) {
-        if(m_dots[cidx][ridx]->getColor() == turn) {
+        if(m_dots[cidx][ridx]->getColor() == *turn) {
             cnt++;
             v.push_back(std::make_pair(cidx, ridx));
         }
@@ -182,13 +182,13 @@ bool Board::checkRightDiagonalWin(int turn, std::vector<std::pair<int, int> > &v
     return false;
 }
 
-void Board::highlightWinIndexes(SDL_Renderer* renderer, std::vector<std::pair<int, int> > win_indexes, int turn) const {
+void Board::highlightWinIndexes(SDL_Renderer* const renderer, const std::vector<std::pair<int, int> > &win_indexes, int const* turn) const {
     for(int i = 0; i < win_indexes.size(); i++) {
         m_dots[win_indexes[i].first][win_indexes[i].second]->highlight(renderer, turn);
     }
 }
 
-bool Board::checkWinState(SDL_Renderer* renderer, int turn) const {
+bool Board::checkWinState(SDL_Renderer* renderer, int const* turn) const {
     if(last_x == -1 || last_y == -1) return false;
     std::vector<std::pair<int, int> > win_indexes;
     if(

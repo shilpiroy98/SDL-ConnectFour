@@ -20,19 +20,19 @@ class Board {
     int last_x, last_y;
     
 public:
-    Board(SDL_Renderer* renderer);
+    Board(SDL_Renderer* const renderer);
     ~Board();
     static int getBoardWidth();
     static int getBoardHeight();
-    void display(SDL_Renderer* renderer, int turn) const;
-    bool handleClickEvent(SDL_Renderer* renderer, int x, int y, int turn);
-    bool handleHoverEvent(SDL_Renderer* renderer, int x, int y, int turn) const;
-    bool checkWinState(SDL_Renderer* renderer, int turn) const;
-    bool checkColumnWin(int turn, std::vector<std::pair<int, int> > &v) const;
-    bool checkRowWin(int turn, std::vector<std::pair<int, int> > &v) const;
-    bool checkLeftDiagonalWin(int turn, std::vector<std::pair<int, int> > &v) const;
-    bool checkRightDiagonalWin(int turn, std::vector<std::pair<int, int> > &v) const;
-    void highlightWinIndexes(SDL_Renderer* renderer, std::vector<std::pair<int, int> > win_indexes, int turn) const;
+    void display(SDL_Renderer* const renderer, int const* turn) const;
+    bool handleClickEvent(SDL_Renderer* const renderer, int const * x, int const * y, int const* turn);
+    bool handleHoverEvent(SDL_Renderer* const renderer, int const * x, int const * y, int const* turn) const;
+    bool checkWinState(SDL_Renderer* const renderer, int const* turn) const;
+    bool checkColumnWin(int const* turn, std::vector<std::pair<int, int> > &v) const;
+    bool checkRowWin(int const* turn, std::vector<std::pair<int, int> > &v) const;
+    bool checkLeftDiagonalWin(int const* turn, std::vector<std::pair<int, int> > &v) const;
+    bool checkRightDiagonalWin(int const* turn, std::vector<std::pair<int, int> > &v) const;
+    void highlightWinIndexes(SDL_Renderer* const renderer, const std::vector<std::pair<int, int> > &win_indexes, int const* turn) const;
     
 };
 #endif /* Board_hpp */
