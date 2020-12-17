@@ -94,14 +94,14 @@ bool DotTexture::loadFromFile(std::string path, std::string path2, SDL_Renderer*
     return mTexture != NULL && mTexture2 != NULL;
 }
 
-void DotTexture::highlight(SDL_Renderer* renderer, int turn) {
+void DotTexture::highlight(SDL_Renderer* renderer, int turn) const {
     SDL_Rect curRect {posX, posY, SPRITE_SIZE, SPRITE_SIZE};
     SDL_SetTextureColorMod(currentTexture, 12, 250, 18);
     SDL_SetTextureAlphaMod(currentTexture, 250);
     SDL_RenderCopy(renderer, currentTexture, &spriteRect, &curRect);
 }
 
-void DotTexture::render(SDL_Renderer* renderer, int turn) {
+void DotTexture::render(SDL_Renderer* renderer, int turn) const {
     SDL_Rect curRect {posX, posY, SPRITE_SIZE, SPRITE_SIZE};
     if(!isColored()) {
         if(turn == 0) {
@@ -167,7 +167,7 @@ bool DotTexture::loadMedia(SDL_Renderer* renderer) {
     return true;
 }
 
-bool DotTexture::isColored() {
+bool DotTexture::isColored() const {
     return m_isColored;
 }
 
@@ -178,7 +178,7 @@ void DotTexture::setColor(SDL_Renderer* renderer, Uint8 r, Uint8 g, Uint8 b, int
     else currentTexture = mTexture2;
 }
 
-int DotTexture::getColor() {
+int DotTexture::getColor() const {
     return m_color;
 }
 

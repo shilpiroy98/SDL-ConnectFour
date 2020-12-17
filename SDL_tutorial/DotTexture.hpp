@@ -32,21 +32,21 @@ class DotTexture
         void free();
 
         //Renders texture at given point
-        void render(SDL_Renderer* renderer, int turn = -1);
+        void render(SDL_Renderer* renderer, int turn = -1) const;
     
         void setColor(SDL_Renderer* renderer, Uint8 r, Uint8 g, Uint8 b, int turn);
     
         bool loadMedia(SDL_Renderer* renderer);
         void initialize(SDL_Renderer* renderer);
         static void setHoverIndex(int x);
-        void highlight(SDL_Renderer* renderer, int turn);
+        void highlight(SDL_Renderer* renderer, int turn) const;
 
         //Gets image dimensions
         int getWidth();
         int getHeight();
         
-        bool isColored();
-        int getColor();
+        bool isColored() const;
+        int getColor() const;
         const static int SPRITE_SIZE = 32;
         static const std::string FILE_PATH;
 
