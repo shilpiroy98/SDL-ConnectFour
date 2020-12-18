@@ -31,7 +31,7 @@ int main(int argc, char * argv[]) {
         
         bool quit = false;
         SDL_Event e;
-        GameManager* gameMgr = new GameManager(renderer);
+        std::unique_ptr<GameManager> gameMgr = std::make_unique<GameManager>(renderer);
         int turn = 0;
         while(!quit) {
             SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
@@ -68,7 +68,6 @@ int main(int argc, char * argv[]) {
             
             SDL_RenderPresent(renderer);
         }
-    delete gameMgr;
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     renderer = NULL;

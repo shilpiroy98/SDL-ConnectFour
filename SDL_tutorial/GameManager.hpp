@@ -13,7 +13,7 @@
 #include "Board.hpp"
 
 class GameManager {
-    Board* board;
+    std::unique_ptr<Board> board;
 public:
     GameManager(SDL_Renderer* const renderer);
     ~GameManager();

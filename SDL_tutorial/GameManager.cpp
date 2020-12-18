@@ -11,11 +11,10 @@
 GameManager::GameManager(SDL_Renderer* renderer) {
     SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
     SDL_RenderClear(renderer);
-    board = new Board(renderer);
+    board = std::make_unique<Board>(renderer);
 }
 
 GameManager::~GameManager() {
-    delete board;
 }
 
 void GameManager::displayBoard(SDL_Renderer* const renderer, int const* turn) const {

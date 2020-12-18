@@ -14,18 +14,14 @@ Board::Board(SDL_Renderer* renderer) {
     last_y = -1;
     for(int i = 0; i < BOARD_WIDTH; i += DotTexture::SPRITE_SIZE) {
         for(int j = 0; j < BOARD_HEIGHT; j += DotTexture::SPRITE_SIZE) {
-            m_dots[i/DotTexture::SPRITE_SIZE][j/DotTexture::SPRITE_SIZE] = new DotTexture(i, j);
+            m_dots[i/DotTexture::SPRITE_SIZE][j/DotTexture::SPRITE_SIZE] = std::make_unique<DotTexture>(i, j);
             m_dots[i/DotTexture::SPRITE_SIZE][j/DotTexture::SPRITE_SIZE]->initialize(renderer);
         }
     }
 }
 
 Board::~Board() {
-    for(int i = 0; i < BOARD_WIDTH; i += DotTexture::SPRITE_SIZE) {
-        for(int j = 0; j < BOARD_HEIGHT; j += DotTexture::SPRITE_SIZE) {
-            delete m_dots[i/DotTexture::SPRITE_SIZE][j/DotTexture::SPRITE_SIZE];
-        }
-    }
+
 }
 
 int Board::getBoardWidth() {

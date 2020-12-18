@@ -14,8 +14,8 @@
             filePath = "SDL_tutorial/Board.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "61"
-            endingLineNumber = "61"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
             landmarkName = "Board::handleClickEvent(renderer, x, y, turn)"
             landmarkType = "7">
          </BreakpointContent>
@@ -30,9 +30,9 @@
             filePath = "SDL_tutorial/Board.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "195"
-            endingLineNumber = "195"
-            landmarkName = "Board::highlightWinIndexes(renderer, win_indexes, turn)"
+            startingLineNumber = "191"
+            endingLineNumber = "191"
+            landmarkName = "Board::checkRightDiagonalWin(turn, v)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -71,22 +71,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "FB819E6A-1BBC-4C94-89C4-6069AC39DFC5"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SDL_tutorial/GameManager.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "18"
-            endingLineNumber = "18"
-            landmarkName = "GameManager::~GameManager()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "2ED877C1-2FFD-46CE-B00F-6699B2712F69"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -98,6 +82,38 @@
             endingLineNumber = "24"
             landmarkName = "Board::~Board()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "2ED877C1-2FFD-46CE-B00F-6699B2712F69 - 9e1c2aaf3c5b2a97"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Board::~Board()"
+                  moduleName = "SDL_tutorial"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shroy/Desktop/SDL_tutorial/SDL_tutorial/Board.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "29"
+                  endingLineNumber = "29"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  uuid = "2ED877C1-2FFD-46CE-B00F-6699B2712F69 - 9e1c2aaf3c5b2a97"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Board::~Board()"
+                  moduleName = "SDL_tutorial"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shroy/Desktop/SDL_tutorial/SDL_tutorial/Board.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "29"
+                  endingLineNumber = "29"
+                  offsetFromSymbolStart = "21">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -114,6 +130,54 @@
             endingLineNumber = "13"
             landmarkName = "Board::Board(renderer)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A768D8DE-B594-4599-8225-E37C5EBA3A3B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SDL_tutorial/GameManager.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "17"
+            endingLineNumber = "17"
+            landmarkName = "GameManager::~GameManager()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "A768D8DE-B594-4599-8225-E37C5EBA3A3B - 60601b5fe851e000"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "GameManager::~GameManager()"
+                  moduleName = "SDL_tutorial"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shroy/Desktop/SDL_tutorial/SDL_tutorial/GameManager.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  uuid = "A768D8DE-B594-4599-8225-E37C5EBA3A3B - 60601b5fe851e000"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "GameManager::~GameManager()"
+                  moduleName = "SDL_tutorial"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shroy/Desktop/SDL_tutorial/SDL_tutorial/GameManager.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "16">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
