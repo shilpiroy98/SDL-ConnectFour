@@ -14,8 +14,8 @@
 #include <vector>
 
 class Board {
-    const static int BOARD_WIDTH = 270;
-    const static int BOARD_HEIGHT = 285;
+    const static int BOARD_WIDTH = 288;
+    const static int BOARD_HEIGHT = 288;
     std::unique_ptr<DotTexture> m_dots[BOARD_WIDTH + 1][BOARD_HEIGHT + 1];
     int last_x, last_y;
     
